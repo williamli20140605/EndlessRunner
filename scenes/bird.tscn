@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/hazard.gd" id="1_hazard"]
+[ext_resource type="Texture2D" path="res://assets/bird.svg" id="2_bird"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bird"]
+size = Vector2(40, 20)
+
+[node name="Bird" type="Area2D" groups=["hazard", "scrolling"]]
+collision_layer = 2
+collision_mask = 1
+monitoring = true
+script = ExtResource("1_hazard")
+z_index = 12
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_bird")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bird")

@@ -1,0 +1,226 @@
+[gd_scene load_steps=9 format=3 uid="uid://b50ydm8n86ic8"]
+
+[ext_resource type="Script" uid="uid://bf4ditk1503hf" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Texture2D" uid="uid://dspj6umk5240b" path="res://assets/hills.svg" id="2_hills"]
+[ext_resource type="Texture2D" uid="uid://j58gnrmjx118" path="res://assets/clouds.svg" id="3_clouds"]
+[ext_resource type="Texture2D" uid="uid://bjfgebgs8nrk5" path="res://assets/sky.svg" id="4_sky"]
+[ext_resource type="Texture2D" uid="uid://cm3aam84lf57s" path="res://assets/sun.svg" id="5_sun"]
+[ext_resource type="Script" uid="uid://c7upuo2fswj87" path="res://scripts/canvas.gd" id="6_game_ui"]
+[ext_resource type="Script" uid="uid://bnii75icaxldc" path="res://scripts/world.gd" id="8_world_director"]
+[ext_resource type="PackedScene" path="res://scenes/easter_egg.tscn" id="9_easter_egg"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Sky" type="TextureRect" parent="Background"]
+offset_right = 960.0
+offset_bottom = 640.0
+texture = ExtResource("4_sky")
+stretch_mode = 5
+
+[node name="Sun" type="TextureRect" parent="Background"]
+offset_left = 784.0
+offset_top = 112.0
+offset_right = 872.0
+offset_bottom = 200.0
+texture = ExtResource("5_sun")
+stretch_mode = 5
+
+[node name="Clouds" type="Node2D" parent="Background"]
+
+[node name="CloudA" type="Sprite2D" parent="Background/Clouds"]
+position = Vector2(130, 92)
+texture = ExtResource("3_clouds")
+
+[node name="CloudB" type="Sprite2D" parent="Background/Clouds"]
+position = Vector2(390, 146)
+scale = Vector2(0.86, 0.86)
+texture = ExtResource("3_clouds")
+
+[node name="CloudC" type="Sprite2D" parent="Background/Clouds"]
+position = Vector2(650, 80)
+scale = Vector2(1.08, 1.08)
+texture = ExtResource("3_clouds")
+
+[node name="CloudD" type="Sprite2D" parent="Background/Clouds"]
+position = Vector2(910, 132)
+texture = ExtResource("3_clouds")
+
+[node name="CloudE" type="Sprite2D" parent="Background/Clouds"]
+position = Vector2(1170, 96)
+scale = Vector2(0.92, 0.92)
+texture = ExtResource("3_clouds")
+
+[node name="Hills" type="Node2D" parent="Background"]
+
+[node name="HillA" type="Sprite2D" parent="Background/Hills"]
+position = Vector2(240, 462)
+texture = ExtResource("2_hills")
+
+[node name="HillB" type="Sprite2D" parent="Background/Hills"]
+position = Vector2(720, 462)
+texture = ExtResource("2_hills")
+
+[node name="HillC" type="Sprite2D" parent="Background/Hills"]
+position = Vector2(1200, 462)
+texture = ExtResource("2_hills")
+
+[node name="World" type="Node2D" parent="."]
+script = ExtResource("8_world_director")
+
+[node name="GroundSegments" type="Node2D" parent="World"]
+
+[node name="Scrollers" type="Node2D" parent="World"]
+
+[node name="RunnerSlot" type="Node2D" parent="World"]
+
+[node name="EasterEgg" parent="World" instance=ExtResource("9_easter_egg")]
+position = Vector2(480, -80)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("6_game_ui")
+
+[node name="HudBackdrop" type="ColorRect" parent="CanvasLayer"]
+offset_right = 960.0
+offset_bottom = 104.0
+color = Color(0.025, 0.04, 0.045, 0.48)
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+offset_left = 24.0
+offset_top = 18.0
+offset_right = 250.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(0.96, 0.99, 0.94, 1)
+theme_override_colors/font_shadow_color = Color(0.02, 0.03, 0.04, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 22
+text = "SCORE 0"
+
+[node name="GoldLabel" type="Label" parent="CanvasLayer"]
+offset_left = 24.0
+offset_top = 46.0
+offset_right = 300.0
+offset_bottom = 72.0
+theme_override_colors/font_color = Color(1, 0.86, 0.36, 1)
+theme_override_colors/font_shadow_color = Color(0.02, 0.03, 0.04, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 18
+text = "GOLD 0"
+
+[node name="LivesLabel" type="Label" parent="CanvasLayer"]
+offset_left = 24.0
+offset_top = 72.0
+offset_right = 300.0
+offset_bottom = 98.0
+theme_override_colors/font_color = Color(1, 0.42, 0.38, 1)
+theme_override_colors/font_shadow_color = Color(0.02, 0.03, 0.04, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 18
+text = "HEARTS 2/2"
+
+[node name="ShieldLabel" type="Label" parent="CanvasLayer"]
+offset_left = 690.0
+offset_top = 72.0
+offset_right = 936.0
+offset_bottom = 98.0
+theme_override_colors/font_color = Color(0.58, 0.93, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.02, 0.03, 0.04, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "SHIELD --"
+horizontal_alignment = 2
+
+[node name="HighScoreLabel" type="Label" parent="CanvasLayer"]
+offset_left = 690.0
+offset_top = 18.0
+offset_right = 936.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(0.96, 0.99, 0.94, 1)
+theme_override_colors/font_shadow_color = Color(0.02, 0.03, 0.04, 0.7)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 22
+text = "BEST 0"
+horizontal_alignment = 2
+
+[node name="MessageLabel" type="Label" parent="CanvasLayer"]
+visible = false
+offset_left = 260.0
+offset_top = 126.0
+offset_right = 700.0
+offset_bottom = 216.0
+theme_override_colors/font_color = Color(1, 0.95, 0.74, 1)
+theme_override_colors/font_shadow_color = Color(0.02, 0.03, 0.04, 0.82)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverShade" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.03, 0.04, 0.48)
+
+[node name="GameOverLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -94.0
+offset_right = 210.0
+offset_bottom = -34.0
+theme_override_colors/font_color = Color(1, 0.95, 0.82, 1)
+theme_override_colors/font_shadow_color = Color(0.02, 0.03, 0.04, 0.88)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 42
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResultLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -32.0
+offset_right = 260.0
+offset_bottom = 4.0
+theme_override_colors/font_color = Color(0.95, 0.98, 0.94, 1)
+theme_override_colors/font_shadow_color = Color(0.02, 0.03, 0.04, 0.88)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = 44.0
+offset_right = 82.0
+offset_bottom = 94.0
+theme_override_font_sizes/font_size = 22
+text = "Run Again"
+
+[connection signal="collected" from="World/EasterEgg" to="." method="_on_easter_egg_collected"]
+[connection signal="pressed" from="CanvasLayer/RestartButton" to="." method="_on_restart_button_pressed"]
